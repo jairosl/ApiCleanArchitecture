@@ -1,4 +1,5 @@
 import { IUsersRepository } from '../../../data/Repositories/IUsersRepository';
+import { User } from '../../entities/User';
 import { ICreateUserRequestDTO } from './CreateUserDTO';
 
 export class CreateUserUseCase {
@@ -6,15 +7,15 @@ export class CreateUserUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO) {
+  async execute(data: ICreateUserRequestDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByCpf(data.cpf);
 
     if (userAlreadyExists) {
       throw new Error('User already exists');
     }
 
-    const user = this.usersRepository.create();
+    const user = await this.usersRepository.save(data);
 
-    await this.usersRepository.save(user);
+    return user;
   }
 }
