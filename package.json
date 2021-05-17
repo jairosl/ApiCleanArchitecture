@@ -5,7 +5,8 @@
   "author": "jairosl <jairo.lima@aluno.uepb.edu.br>",
   "license": "MIT",
   "scripts": {
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts"
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "express": "^4.17.1",
