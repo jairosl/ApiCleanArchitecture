@@ -1,11 +1,13 @@
 import { IUsersRepository } from '../../../data/repositories/IUsersRepository';
 import { IValidateCpf } from '../../../data/services/IValidateCpf';
+import { IValidateNumberPhone } from '../../../data/services/IValidateNumberPhone';
 import { ICreateUserRequestDTO, ICreateUserResponseDTO } from './CreateUserDTO';
 
 export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
     private validateCpf: IValidateCpf,
+    private validatePhone: IValidateNumberPhone,
   ) {}
 
   async execute(data: ICreateUserRequestDTO): Promise<ICreateUserResponseDTO> {
@@ -13,6 +15,14 @@ export class CreateUserUseCase {
       const responseCpfInvalid: ICreateUserResponseDTO = {
         success: false,
         message: 'CPF Invalido',
+      };
+      return responseCpfInvalid;
+    }
+
+    if (!this.validatePhone.validate(data.phone)) {
+      const responseCpfInvalid: ICreateUserResponseDTO = {
+        success: false,
+        message: 'Numero de celular inválido',
       };
       return responseCpfInvalid;
     }
