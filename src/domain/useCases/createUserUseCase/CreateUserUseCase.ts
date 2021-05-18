@@ -2,6 +2,7 @@ import { IUsersRepository } from '../../../data/repositories/IUsersRepository';
 import { IValidateCpf } from '../../../data/services/IValidateCpf';
 import { IValidateNumberPhone } from '../../../data/services/IValidateNumberPhone';
 import { HttpResponse } from '../../../presentation/contracts/http';
+import { ValidationError } from '../../errors/ValidatorError';
 import { ICreateUserRequestDTO, ICreateUserResponseDTO } from './CreateUserDTO';
 
 export class CreateUserUseCase {
@@ -13,27 +14,11 @@ export class CreateUserUseCase {
 
   async execute(data: ICreateUserRequestDTO): Promise<HttpResponse<ICreateUserResponseDTO>> {
     if (!this.validateCpf.validate(data.cpf)) {
-      const response: HttpResponse<ICreateUserResponseDTO> = {
-        statusCode: 400,
-        data: {
-          success: false,
-          message: 'Cpf Invalido',
-        },
-      };
-
-      return response;
+      throw new ValidationError(400, 'Cpf Invalido');
     }
 
     if (!this.validatePhone.validate(data.phone)) {
-      const response: HttpResponse<ICreateUserResponseDTO> = {
-        statusCode: 400,
-        data: {
-          success: false,
-          message: 'Numero de telefone Invalido',
-        },
-      };
-
-      return response;
+      throw new ValidationError(400, 'Numero de telefone Invalido');
     }
 
     const userAlreadyExists = await this.usersRepository.findByCpf(data.cpf);
