@@ -1,9 +1,9 @@
-export class ValidateError {
+export class ValidationError {
   public readonly message: string;
 
   public readonly statusCode: number;
 
-  constructor(message: string, statusCode = 400) {
+  constructor(statusCode: number, message: string) {
     this.message = message;
     this.statusCode = statusCode;
   }
