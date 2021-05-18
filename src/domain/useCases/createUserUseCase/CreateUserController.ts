@@ -12,16 +12,10 @@ export class CreateUserController {
       lastName, firstName, cpf, phone,
     } = request.body as ICreateUserRequestDTO;
 
-    try {
-      const userResponse = await this.createUserUseCase.execute({
-        lastName, firstName, cpf, phone,
-      });
+    const userResponse = await this.createUserUseCase.execute({
+      lastName, firstName, cpf, phone,
+    });
 
-      return response.status(userResponse.statusCode).json(userResponse.data);
-    } catch (err) {
-      return response.status(400).json({
-        message: err.message || 'Unexpected error!',
-      });
-    }
+    return response.status(userResponse.statusCode).json(userResponse.data);
   }
 }
