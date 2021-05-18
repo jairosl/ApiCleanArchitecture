@@ -1,5 +1,6 @@
 import express from 'express';
 import 'reflect-metadata';
+import 'express-async-errors';
 import { PostgresDatabase } from './infra/db/Postgres/connection';
 import { router } from './routes';
 
