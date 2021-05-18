@@ -1,13 +1,12 @@
 import { IUsersRepository } from '../../../data/Repositories/IUsersRepository';
-import { User } from '../../entities/User';
-import { ICreateUserRequestDTO } from './CreateUserDTO';
+import { ICreateUserRequestDTO, ICreateUserResponseDTO } from './CreateUserDTO';
 
 export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<User> {
+  async execute(data: ICreateUserRequestDTO): Promise<ICreateUserResponseDTO> {
     const userAlreadyExists = await this.usersRepository.findByCpf(data.cpf);
 
     if (userAlreadyExists) {
@@ -16,6 +15,10 @@ export class CreateUserUseCase {
 
     const user = await this.usersRepository.save(data);
 
-    return user;
+    const responseJson: ICreateUserResponseDTO = {
+      success: !!user,
+      message: 'create user',
+    };
+    return responseJson;
   }
 }

@@ -4,3 +4,8 @@ export interface ICreateUserRequestDTO {
   phone: string;
   cpf: string;
 }
+
+export interface ICreateUserResponseDTO {
+  success: boolean;
+  message: string;
+}
