@@ -24,7 +24,7 @@ export class CreateUserUseCase {
     const userAlreadyExists = await this.usersRepository.findByCpf(data.cpf);
 
     if (userAlreadyExists) {
-      throw new Error('User already exists');
+      throw new ValidationError(400, 'Usuario ja cadastrado');
     }
 
     await this.usersRepository.save(data);
