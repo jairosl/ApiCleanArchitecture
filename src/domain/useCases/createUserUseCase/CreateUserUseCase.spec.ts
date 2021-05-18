@@ -14,14 +14,14 @@ const makeSut = () => {
   return { sut };
 };
 
-describe('Create User use case', () => {
+describe('Create User use cases', () => {
   it('Should be able to create a user', async () => {
     const { sut } = makeSut();
 
     const dataFaker: ICreateUserRequestDTO = {
-      cpf: '117.448.234-64',
-      firstName: 'Jairo',
-      lastName: 'Lima',
+      cpf: '64602034403',
+      firstName: 'User',
+      lastName: 'UserLastName',
       phone: '83999457728',
     };
 
@@ -35,9 +35,9 @@ describe('Create User use case', () => {
     const { sut } = makeSut();
 
     const dataFaker: ICreateUserRequestDTO = {
-      cpf: '117.448.234.64',
-      firstName: 'Jairo',
-      lastName: 'Lima',
+      cpf: '64602034401',
+      firstName: 'User',
+      lastName: 'UserLastName',
       phone: '83999457728',
     };
 
@@ -52,9 +52,9 @@ describe('Create User use case', () => {
     const { sut } = makeSut();
 
     const dataFaker: ICreateUserRequestDTO = {
-      cpf: '117.448.234-64',
-      firstName: 'Jairo',
-      lastName: 'Lima',
+      cpf: '64602034403',
+      firstName: 'User',
+      lastName: 'UserLastName',
       phone: '',
     };
 
@@ -69,9 +69,9 @@ describe('Create User use case', () => {
     const { sut } = makeSut();
 
     const dataFaker: ICreateUserRequestDTO = {
-      cpf: '117.448.234-64',
-      firstName: 'Jairo',
-      lastName: 'Lima',
+      cpf: '64602034403',
+      firstName: 'User',
+      lastName: 'UserLastName',
       phone: '83999457728',
     };
 
