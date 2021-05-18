@@ -17,7 +17,7 @@ export class CreateUserController {
         lastName, firstName, cpf, phone,
       });
 
-      return response.status(201).json(userResponse);
+      return response.status(userResponse.statusCode).json(userResponse.data);
     } catch (err) {
       return response.status(400).json({
         message: err.message || 'Unexpected error!',

@@ -1,6 +1,7 @@
 import { IUsersRepository } from '../../../data/repositories/IUsersRepository';
 import { IValidateCpf } from '../../../data/services/IValidateCpf';
 import { IValidateNumberPhone } from '../../../data/services/IValidateNumberPhone';
+import { HttpResponse } from '../../../presentation/contracts/http';
 import { ICreateUserRequestDTO, ICreateUserResponseDTO } from './CreateUserDTO';
 
 export class CreateUserUseCase {
@@ -10,21 +11,29 @@ export class CreateUserUseCase {
     private validatePhone: IValidateNumberPhone,
   ) {}
 
-  async execute(data: ICreateUserRequestDTO): Promise<ICreateUserResponseDTO> {
+  async execute(data: ICreateUserRequestDTO): Promise<HttpResponse<ICreateUserResponseDTO>> {
     if (!this.validateCpf.validate(data.cpf)) {
-      const responseCpfInvalid: ICreateUserResponseDTO = {
-        success: false,
-        message: 'CPF Invalido',
+      const response: HttpResponse<ICreateUserResponseDTO> = {
+        statusCode: 400,
+        data: {
+          success: false,
+          message: 'Cpf Invalido',
+        },
       };
-      return responseCpfInvalid;
+
+      return response;
     }
 
     if (!this.validatePhone.validate(data.phone)) {
-      const responseCpfInvalid: ICreateUserResponseDTO = {
-        success: false,
-        message: 'Numero de celular inválido',
+      const response: HttpResponse<ICreateUserResponseDTO> = {
+        statusCode: 400,
+        data: {
+          success: false,
+          message: 'Numero de telefone Invalido',
+        },
       };
-      return responseCpfInvalid;
+
+      return response;
     }
 
     const userAlreadyExists = await this.usersRepository.findByCpf(data.cpf);
@@ -33,12 +42,16 @@ export class CreateUserUseCase {
       throw new Error('User already exists');
     }
 
-    const user = await this.usersRepository.save(data);
+    await this.usersRepository.save(data);
 
-    const responseJson: ICreateUserResponseDTO = {
-      success: !!user,
-      message: 'create user',
+    const response: HttpResponse<ICreateUserResponseDTO> = {
+      statusCode: 201,
+      data: {
+        success: true,
+        message: 'User Created',
+      },
     };
-    return responseJson;
+
+    return response;
   }
 }
