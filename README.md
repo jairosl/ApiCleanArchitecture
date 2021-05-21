@@ -92,9 +92,9 @@ Obs.: esse Error Message pode ser: "Cpf Invalido", "Numero de telefone Invalido"
   "user": {
     "id": "Uuid_User",
     "firstName": "User_First_Name",
-"lastName": "User_Last_Name",
-"cpf": "User_Cpf",
-"phone": "User_Phone"
+  "lastName": "User_Last_Name",
+  "cpf": "User_Cpf",
+  "phone": "User_Phone"
   }
 }
 ```
